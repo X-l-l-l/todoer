@@ -2,6 +2,7 @@ package todoer.todolist;
 
 import jakarta.persistence.*;
 import todoer.item.Item;
+import todoer.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,8 @@ import java.util.List;
 @Table(name = "todos")
 public class ToDoList {
     @Id
-    @SequenceGenerator(
-            name = "todo_sequence",
-            sequenceName = "todo_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "todo_sequence"
+            strategy = GenerationType.IDENTITY
     )
     private Long id;
     private String title;
@@ -86,5 +81,9 @@ public class ToDoList {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "todo")
     private List<Item> items;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private User user;
 
 }

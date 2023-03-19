@@ -1,7 +1,11 @@
 package todoer.user;
 
 import jakarta.persistence.*;
+import todoer.item.Item;
+import todoer.todolist.ToDoList;
+
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Represents the user/person with all their caracteristics
@@ -10,14 +14,8 @@ import java.time.LocalDate;
 @Table(name = "users")
 public class User {
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
+            strategy = GenerationType.IDENTITY
     )
     private Long id;
     private String name;
@@ -105,4 +103,7 @@ public class User {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ToDoList> todos;
 }

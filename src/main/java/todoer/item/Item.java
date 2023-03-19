@@ -10,14 +10,8 @@ import todoer.todolist.ToDoList;
 @Table(name = "items")
 public class Item {
     @Id
-    @SequenceGenerator(
-            name = "item_sequence",
-            sequenceName = "item_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "item_sequence"
+            strategy = GenerationType.IDENTITY
     )
     private Long id;
     private String text;
