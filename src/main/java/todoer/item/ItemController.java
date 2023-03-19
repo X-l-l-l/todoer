@@ -9,6 +9,9 @@ import todoer.todolist.ToDoListRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Has all the functionalities of an item
+ */
 @RestController
 @RequestMapping("items")
 public class ItemController {
@@ -19,12 +22,18 @@ public class ItemController {
         this.itemService = itemService;
     }
 
+    /**
+     * @return a list of items from the database
+     */
     @GetMapping
     public List<Item> getItems()
     {
         return itemService.getItems();
     }
 
+    /**
+     * @param item the item that needs to be added to the database
+     */
     @PostMapping
     public void addItem(@RequestBody Item item)
     {

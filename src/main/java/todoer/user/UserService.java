@@ -4,12 +4,13 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Implementation of all the functionalities of a user
+ */
 @Service
 public class UserService {
 
@@ -20,19 +21,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * @return a list of all users in the database
+     */
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
-        Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
-        if (userByEmail.isPresent())
-        {
-            throw new IllegalStateException("email already exists");
-        }
-        userRepository.save(user);
-    }
-
+    /**
+     * @param userId the id by which the user is deleted
+     */
     public void deleteUser(Long userId) {
         boolean exists = userRepository.existsById(userId);
         if(!exists){
@@ -43,6 +41,11 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    /**
+     * @param userId the id of the user that will be updated
+     * @param name the new name
+     * @param email the new email
+     */
     @Transactional
     public void updateUser(Long userId, String name, String email) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("user with id "+userId+" does not exist"));

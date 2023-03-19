@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import todoer.user.User;
 
+/**
+ * Contains the functionalities of creating and using an account
+ */
 @RestController
 public class AccountController {
 
@@ -16,11 +19,17 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    /**
+     * @param user the user that will be logged in
+     */
     @PostMapping(path = "login")
     public void logIn(@RequestBody User user) {
         accountService.logIn(user);
     }
 
+    /**
+     * @param user the user that will be registered
+     */
     @PostMapping (path = "register")
     public void register(@RequestBody User user) {
         accountService.register(user);

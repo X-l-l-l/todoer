@@ -6,6 +6,9 @@ import todoer.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representation of the list of tasks
+ */
 @Entity
 @Table(name = "todos")
 public class ToDoList {

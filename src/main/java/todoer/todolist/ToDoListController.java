@@ -16,12 +16,18 @@ public class ToDoListController {
         this.toDoListService = toDoListService;
     }
 
+    /**
+     * @return a list of all the to do lists from the database
+     */
     @GetMapping
     public List<ToDoList> getToDos()
     {
         return toDoListService.getToDos();
     }
 
+    /**
+     * @param todo the list to be added in the database
+     */
     @PostMapping
     public void createToDo(@RequestBody ToDoList todo)
     {

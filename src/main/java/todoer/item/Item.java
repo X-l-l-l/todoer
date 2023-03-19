@@ -3,6 +3,9 @@ package todoer.item;
 import jakarta.persistence.*;
 import todoer.todolist.ToDoList;
 
+/**
+ * Used to implement each of the to-do list items
+ */
 @Entity
 @Table(name = "items")
 public class Item {
