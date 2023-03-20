@@ -49,3 +49,8 @@ There are 4 main packages:
 - the account package, responsible for authentification functionality like login and registration
 - the item package, which contains the item class, the item_controller, item_service and item_repository
 - the todolist package, which contains the todolist class, the todolist_controller, todolist_service and todolist_repository
+
+The project is divided into 3 layers:
+- the controller layer, which contains all of the functionalities of the app and routing methods for specific requests
+- the service layer, responsible for implementing all the functionalities of the app
+- the repository layer, which ties the app and the database, it creates queries for getting specific data from the database
