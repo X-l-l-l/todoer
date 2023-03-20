@@ -42,12 +42,13 @@ public class AccountService {
     /**
      * Checks if the username is in the database
      * Chacks if the password given and the one of the user already in the database mach
-     * @param user the user that will be logged in
+     * @param username the username given
+     * @param password the password given
      * @return true or false depending on credentials
      */
-    public Boolean logIn(User user) {
-        Optional<User> userByUsername = userRepository.findUserByUsername(user.getUsername());
+    public Boolean logIn(String username, String password) {
+        Optional<User> userByUsername = userRepository.findUserByUsername(username);
 
-        return userByUsername.filter(value -> user.getPassword().equals(value.getPassword())).isPresent();
+        return userByUsername.filter(value -> password.equals(value.getPassword())).isPresent();
     }
 }

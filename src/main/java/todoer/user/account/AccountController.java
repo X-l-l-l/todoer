@@ -20,11 +20,12 @@ public class AccountController {
     }
 
     /**
-     * @param user the user that will be logged in
+     * @param username the username given
+     * @param password the password given
      */
     @PostMapping(path = "login")
-    public void logIn(@RequestBody User user) {
-        accountService.logIn(user);
+    public void logIn(@RequestBody String username, String password) {
+        accountService.logIn(username, password);
     }
 
     /**
