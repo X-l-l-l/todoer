@@ -1,9 +1,7 @@
 package todoer.user.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import todoer.user.User;
 
 /**
@@ -25,7 +23,11 @@ public class AccountController {
      */
     @PostMapping(path = "login")
     public void logIn(@RequestBody String username, String password) {
-        accountService.logIn(username, password);
+        if(accountService.logIn(username, password))
+        {
+            System.out.println("Logged in");
+        }
+        System.out.println("Wrong credentials");
     }
 
     /**
