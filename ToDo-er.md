@@ -18,8 +18,6 @@ Any user can create a team and invite friends or peers into their team. The diff
 ## Benefits
 This app can benefit individuals, as well as teams, helping them track their daily tasks, their schedules, their teamates work, etc. It can boost productivity for anybody, removing the problem of remembering **when** and **what** has to be done, so the user can focus on **how** the task has to be done.
 
-## Database Design
-![Database](https://www.planttext.com/api/plantuml/svg/VPBTQeD048NlzoccAHI5Xf12IWWYUOZUowfZ7Be_iauQGz9txwungIMnxjNksJFdcnrXsx9qlDTAF9LOaK5e76dfZjad7gCkXYHFay8gwpRF-NhzllJR5o-boQ8_JQ5B5dbwSrVM8UtCpJrOPVZkd3SNornXk8-6YO_GGP90zF4AXveOOqX_0xnthysuDbPX-U8QIv9pXuLrvPyKhb7xnfGa8yGbQz-YQ-EJ67TBPRo1d7PaM0mnfMJCR9NbvBZsQjZ3LKGjIVd3B-cAMhheRRMARwAH6gUqHhRjmKDEwG7kWLzyN-dPblOVUX3ZCOHgsQFUi2qSDKpMJ87uOQXf2ZyQ_TyRZY4KjVm8eh2wKSXuKJXQZiAnupkm41wQX_DvFZz1Zx21sL1-9lgv3c9_qOl30yp45atfVtNu0G00)
 ## Functionalities
 1. **Register**
     - anyone can create an account and start using the app
@@ -37,9 +35,7 @@ This app can benefit individuals, as well as teams, helping them track their dai
 5. **Notifications**
     - notifications will pop up, anouncing the user when a task deadline is close
 
+## Implementation
 
-
-
-
-
-
+## Database Design
+![Database](https://www.planttext.com/api/plantuml/svg/VPBTQeD048NlzoccAHI5Xf12IWWYUOZUowfZ7Be_iauQGz9txwungIMnxjNksJFdcnrXsx9qlDTAF9LOaK5e76dfZjad7gCkXYHFay8gwpRF-NhzllJR5o-boQ8_JQ5B5dbwSrVM8UtCpJrOPVZkd3SNornXk8-6YO_GGP90zF4AXveOOqX_0xnthysuDbPX-U8QIv9pXuLrvPyKhb7xnfGa8yGbQz-YQ-EJ67TBPRo1d7PaM0mnfMJCR9NbvBZsQjZ3LKGjIVd3B-cAMhheRRMARwAH6gUqHhRjmKDEwG7kWLzyN-dPblOVUX3ZCOHgsQFUi2qSDKpMJ87uOQXf2ZyQ_TyRZY4KjVm8eh2wKSXuKJXQZiAnupkm41wQX_DvFZz1Zx21sL1-9lgv3c9_qOl30yp45atfVtNu0G00)
