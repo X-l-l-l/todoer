@@ -35,7 +35,17 @@ This app can benefit individuals, as well as teams, helping them track their dai
 5. **Notifications**
     - notifications will pop up, anouncing the user when a task deadline is close
 
-## Implementation
-
 ## Database Design
 ![Database](https://www.planttext.com/api/plantuml/svg/VPBTQeD048NlzoccAHI5Xf12IWWYUOZUowfZ7Be_iauQGz9txwungIMnxjNksJFdcnrXsx9qlDTAF9LOaK5e76dfZjad7gCkXYHFay8gwpRF-NhzllJR5o-boQ8_JQ5B5dbwSrVM8UtCpJrOPVZkd3SNornXk8-6YO_GGP90zF4AXveOOqX_0xnthysuDbPX-U8QIv9pXuLrvPyKhb7xnfGa8yGbQz-YQ-EJ67TBPRo1d7PaM0mnfMJCR9NbvBZsQjZ3LKGjIVd3B-cAMhheRRMARwAH6gUqHhRjmKDEwG7kWLzyN-dPblOVUX3ZCOHgsQFUi2qSDKpMJ87uOQXf2ZyQ_TyRZY4KjVm8eh2wKSXuKJXQZiAnupkm41wQX_DvFZz1Zx21sL1-9lgv3c9_qOl30yp45atfVtNu0G00)
+
+The app is composed of 3 tables: 
+- one for users and user related data such as name, date_of_birth, email, username, password
+- one for items which has their text and if they are completed or not
+- one for the todo lists which has a title/name of the list and a description
+
+## Implementation
+There are 4 main packages:
+- the user package, which contains the user class, the user_controller, user_service and user repository
+- the account package, responsible for authentification functionality like login and registration
+- the item package, which contains the item class, the item_controller, item_service and item_repository
+- the todolist package, which contains the todolist class, the todolist_controller, todolist_service and todolist_repository
