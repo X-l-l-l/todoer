@@ -40,4 +40,14 @@ public class ItemController {
         itemService.addItem(item);
     }
 
+    @PutMapping(path = "{itemId}")
+    public void updateItem(
+            @PathVariable("itemId") Long itemId,
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) Boolean completed
+    )
+    {
+        itemService.updateItem(itemId, text, completed);
+    }
+
 }

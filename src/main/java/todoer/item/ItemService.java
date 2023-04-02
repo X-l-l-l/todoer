@@ -3,8 +3,11 @@ package todoer.item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import todoer.todolist.ToDoList;
+import todoer.user.User;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Implementation of all the methodology of an item
@@ -31,5 +34,16 @@ public class ItemService {
      */
     public void addItem(Item item){
         itemRepository.save(item);
+    }
+
+    public void updateItem(Long itemId, String text, Boolean completed) {
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new IllegalStateException("user with id "+itemId+" does not exist"));
+        if(text != null && text.length()>0 && !Objects.equals(item.getText(), text)){
+            item.setText(text);
+        }
+
+        if(completed != null && !Objects.equals(item.getCompleted(), completed)){
+            item.setCompleted(completed);
+        }
     }
 }
