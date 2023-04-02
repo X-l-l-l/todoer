@@ -42,6 +42,12 @@ public class ItemService {
         applicationEventPublisher.publishEvent(new NewItemEvent(this, item));
     }
 
+    /**
+     *
+     * @param itemId id of the item to be updated
+     * @param text the new text of the item
+     * @param completed the new state of the item
+     */
     public void updateItem(Long itemId, String text, Boolean completed) {
         Item item = itemRepository.findById(itemId).orElseThrow(() -> new IllegalStateException("user with id "+itemId+" does not exist"));
         if(text != null && text.length()>0 && !Objects.equals(item.getText(), text)){

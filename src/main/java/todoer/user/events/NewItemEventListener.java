@@ -10,6 +10,9 @@ import todoer.todolist.ToDoListRepository;
 import todoer.user.User;
 import todoer.user.UserRepository;
 
+/**
+ * The observer, the class that waits for the event
+ */
 @Component
 public class NewItemEventListener {
 
@@ -18,10 +21,15 @@ public class NewItemEventListener {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * @param newItemEvent receives a newItemEvent which is the event launched by the ItemEvent
+     * It takes the new item that is created and searches for the list and user the item was added to and then sends a notification
+     *                     to the console (for now)
+     */
     @EventListener
     public void handleNewItem(final NewItemEvent newItemEvent){
         ToDoList list = toDoListRepository.findById(newItemEvent.getItem().getTodo().getId()).orElseThrow(() -> new IllegalStateException("list doesn't exist"));
         User user = userRepository.findById(list.getUser().getId()).orElseThrow(() -> new IllegalStateException("user does not exist"));
-        System.out.println(user.getName() + ":New item " + newItemEvent.getItem().getText());
+        System.out.println(user.getName() + ":New item " + newItemEvent.getItem().getText() + " in the " + list.getTitle() + " list.");
     }
 }
