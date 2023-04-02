@@ -27,6 +27,10 @@ public class User {
     public User() {
     }
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public User(Long id, String name, LocalDate dateOfBirth, String email, String username, String password) {
         this.id = id;
         this.name = name;
@@ -101,9 +105,18 @@ public class User {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", todos=" + todos +
                 '}';
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    public List<ToDoList> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<ToDoList> todos) {
+        this.todos = todos;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
     private List<ToDoList> todos;
 }
