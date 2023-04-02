@@ -1,7 +1,9 @@
 package todoer.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import todoer.item.events.NewItemEvent;
 import todoer.todolist.ToDoList;
 import todoer.user.User;
 
@@ -15,6 +17,9 @@ import java.util.Optional;
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     public ItemService(ItemRepository itemRepository)
@@ -34,6 +39,7 @@ public class ItemService {
      */
     public void addItem(Item item){
         itemRepository.save(item);
+        applicationEventPublisher.publishEvent(new NewItemEvent(this, item));
     }
 
     public void updateItem(Long itemId, String text, Boolean completed) {
