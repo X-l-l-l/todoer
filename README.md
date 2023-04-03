@@ -58,3 +58,20 @@ The project is divided into 3 layers:
 ## Functionalities
 - add, select, remove or update lists, items or users
 - on a new item added the user gets notified with the name of the list it is in and of the new items
+
+## Endpoints
+
+### User endpoints
+- POST (register) - adds a new user, if one with the same name or email already exists
+- DELETE - deletes a user by id
+- PUT - updates a users name or email
+- GET - gets all the existing users
+
+### ToDoList endpoints
+- POST (register) - adds a new list to a specific user
+- GET - gets all the existing lists
+
+### Items endpoints
+- POST (register) - adds a new item to a specific list
+- PUT - updates a lists text or state
+- GET - gets all the existing items
