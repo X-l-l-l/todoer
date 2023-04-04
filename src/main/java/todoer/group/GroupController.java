@@ -23,7 +23,7 @@ public class GroupController {
      * @param group the group that needs to be added to the database
      */
     @PostMapping
-    public void Group(@RequestBody Group group)
+    public void addGroup(@RequestBody Group group)
     {
         groupService.addGroup(group);
     }

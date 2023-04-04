@@ -1,6 +1,10 @@
 package todoer.group;
 
 import jakarta.persistence.*;
+import todoer.member.Member;
+import todoer.todolist.ToDoList;
+
+import java.util.List;
 
 /**
  * Represents the group with all their caracteristics
@@ -55,4 +59,7 @@ public class Group {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "group")
+    private List<Member> members;
 }

@@ -2,6 +2,7 @@ package todoer.user;
 
 import jakarta.persistence.*;
 import todoer.item.Item;
+import todoer.member.Member;
 import todoer.todolist.ToDoList;
 
 import java.time.LocalDate;
@@ -119,4 +120,7 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
     private List<ToDoList> todos;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
+    private List<Member> members;
 }
