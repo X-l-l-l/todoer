@@ -70,8 +70,11 @@ The project is divided into 3 layers:
 ### ToDoList endpoints
 - POST (register) - adds a new list to a specific user
 - GET - gets all the existing lists
+- PUT - updates a lists title and description
+- DELETE - deletes a list by id
 
 ### Items endpoints
 - POST (register) - adds a new item to a specific list
 - PUT - updates a lists text or state
 - GET - gets all the existing items
+- DELETE - deletes an item by id
