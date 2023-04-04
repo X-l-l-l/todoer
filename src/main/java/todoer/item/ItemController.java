@@ -50,4 +50,9 @@ public class ItemController {
         itemService.updateItem(itemId, text, completed);
     }
 
+    @DeleteMapping(path = "{itemId}")
+    public void deleteItem(@PathVariable("itemId") Long itemId){
+        itemService.deleteItem(itemId);
+    }
+
 }

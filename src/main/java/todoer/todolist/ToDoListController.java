@@ -33,4 +33,19 @@ public class ToDoListController {
     {
         toDoListService.addToDo(todo);
     }
+
+    @DeleteMapping(path = "{todoId}")
+    public void deleteToDo(@PathVariable Long todoId){
+        toDoListService.deleteToDo(todoId);
+    }
+
+    @PutMapping(path = "{todoId}")
+    public void updateUser(
+            @PathVariable("todoId") Long todoId,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String description
+    )
+    {
+        toDoListService.updateToDo(todoId, title, description);
+    }
 }
