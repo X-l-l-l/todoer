@@ -5,13 +5,13 @@ import todoer.group.Group;
 import todoer.user.User;
 
 @Entity
-@Table(name = "member")
+@Table(name = "members")
 public class Member {
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "userId")

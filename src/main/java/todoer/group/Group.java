@@ -2,7 +2,6 @@ package todoer.group;
 
 import jakarta.persistence.*;
 import todoer.member.Member;
-import todoer.todolist.ToDoList;
 
 import java.util.List;
 
@@ -10,16 +9,16 @@ import java.util.List;
  * Represents the group with all their caracteristics
  */
 @Entity
-@Table(name = "group")
+@Table(name = "grps")
 public class Group {
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    Long id;
-    String name;
-    String description;
+    private Long id;
+    private String name;
+    private String description;
 
     public Group() {
     }
@@ -51,12 +50,21 @@ public class Group {
         this.description = description;
     }
 
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", members=" + members +
                 '}';
     }
 
