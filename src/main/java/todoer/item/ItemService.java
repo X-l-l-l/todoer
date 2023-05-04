@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import todoer.item.events.NewItemEvent;
+import todoer.serviceInterfaces.ItemServiceInterface;
 import todoer.todolist.ToDoList;
 import todoer.user.User;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
  * Implementation of all the methodology of an item
  */
 @Service
-public class ItemService {
+public class ItemService implements ItemServiceInterface {
     private final ItemRepository itemRepository;
 
     @Autowired

@@ -2,6 +2,7 @@ package todoer.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todoer.serviceInterfaces.UserServiceInterface;
 
 import java.util.List;
 
@@ -12,10 +13,10 @@ import java.util.List;
 @RequestMapping("users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceInterface userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserServiceInterface userService) {
         this.userService = userService;
     }
 

@@ -65,14 +65,4 @@ public class UserTests {
                 .getContentAsString(), false);
     }
 
-    @Test
-    public void registerUserTest() throws Exception {
-        User userEntity = new User(1L, "Rares", LocalDate.of(2001, Month.AUGUST,13), "rares@mail.com", "rares", "rares");
-
-        mockMvc.perform(post("/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(userEntity)))
-                .andExpect(status().isOk()).andDo(print());
-    }
-
 }

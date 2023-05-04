@@ -3,6 +3,7 @@ package todoer.member;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import todoer.serviceInterfaces.MemberServiceInterface;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
  * Implementation of all the methodology of a member
  */
 @Service
-public class MemberService {
+public class MemberService implements MemberServiceInterface {
     private final MemberRepository memberRepository;
 
     @Autowired

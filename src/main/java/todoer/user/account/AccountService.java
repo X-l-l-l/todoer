@@ -2,6 +2,7 @@ package todoer.user.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import todoer.serviceInterfaces.AccountServiceInterface;
 import todoer.user.User;
 import todoer.user.UserRepository;
 
@@ -11,7 +12,7 @@ import java.util.Optional;
  * Implementation of the account functionalities
  */
 @Service
-public class AccountService {
+public class AccountService implements AccountServiceInterface {
     private UserRepository userRepository;
 
     @Autowired
@@ -24,7 +25,7 @@ public class AccountService {
      * Creates a new user in the database
      * @param user the user that will be logged in
      */
-    public void register(User user) {
+    public Boolean register(User user) {
         Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
         Optional<User> userByUsername = userRepository.findUserByUsername(user.getUsername());
 
@@ -37,6 +38,8 @@ public class AccountService {
             throw new IllegalStateException("username already exists");
         }
         userRepository.save(user);
+        return true;
+
     }
 
     /**

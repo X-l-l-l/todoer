@@ -2,6 +2,7 @@ package todoer.group;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todoer.serviceInterfaces.GroupServiceInterface;
 
 import java.util.List;
 
@@ -12,10 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("group")
 public class GroupController {
-    private final GroupService groupService;
+    private final GroupServiceInterface groupService;
 
     @Autowired
-    public GroupController(GroupService groupService) {
+    public GroupController(GroupServiceInterface groupService) {
         this.groupService = groupService;
     }
 

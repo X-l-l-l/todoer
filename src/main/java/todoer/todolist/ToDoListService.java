@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import todoer.item.Item;
+import todoer.serviceInterfaces.ToDoListServiceInterface;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * Implementations of the todolist methodologies
  */
 @Service
-public class ToDoListService {
+public class ToDoListService implements ToDoListServiceInterface {
 
     private final ToDoListRepository toDoListRepository;
 

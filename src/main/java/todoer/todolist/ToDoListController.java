@@ -2,6 +2,7 @@ package todoer.todolist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todoer.serviceInterfaces.ToDoListServiceInterface;
 
 import java.util.List;
 
@@ -9,10 +10,10 @@ import java.util.List;
 @RequestMapping("todos")
 public class ToDoListController {
 
-    private final ToDoListService toDoListService;
+    private final ToDoListServiceInterface toDoListService;
 
     @Autowired
-    public ToDoListController(ToDoListService toDoListService){
+    public ToDoListController(ToDoListServiceInterface toDoListService){
         this.toDoListService = toDoListService;
     }
 

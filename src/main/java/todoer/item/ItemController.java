@@ -2,6 +2,7 @@ package todoer.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todoer.serviceInterfaces.ItemServiceInterface;
 import todoer.todolist.ToDoList;
 import todoer.todolist.ToDoListController;
 import todoer.todolist.ToDoListRepository;
@@ -15,10 +16,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("items")
 public class ItemController {
-    private final ItemService itemService;
+    private final ItemServiceInterface itemService;
 
     @Autowired
-    public ItemController(ItemService itemService){
+    public ItemController(ItemServiceInterface itemService){
         this.itemService = itemService;
     }
 

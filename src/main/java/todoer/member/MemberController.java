@@ -2,6 +2,7 @@ package todoer.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todoer.serviceInterfaces.MemberServiceInterface;
 
 import java.util.List;
 
@@ -12,10 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("member")
 public class MemberController {
-    private final MemberService memberService;
+    private final MemberServiceInterface memberService;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberServiceInterface memberService) {
         this.memberService = memberService;
     }
 
