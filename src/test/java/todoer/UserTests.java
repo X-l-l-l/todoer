@@ -1,68 +1,70 @@
 package todoer;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import todoer.serviceInterfaces.UserServiceInterface;
 import todoer.user.User;
-import todoer.user.UserController;
+import todoer.user.UserRepository;
 import todoer.user.UserService;
-import todoer.user.account.AccountService;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@WebMvcTest(value = UserController.class)
+@SpringBootTest
 public class UserTests {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Mock
+    private UserRepository userRepository;
 
-    @MockBean
-    private UserService userService;
+    List<User> mockUsers = Arrays.asList(new User(1L, "Rares", LocalDate.of(2001, Month.AUGUST, 13), "rares@mail.com", "rares", "rares"), new User(2L, "Raress", LocalDate.of(2002, Month.AUGUST, 13), "raress@mail.com", "raress", "raress"));
 
-    @MockBean
-    private AccountService accountService;
-
-    List<User> mockUsers = Arrays.asList(new User(1L, "Rares", LocalDate.of(2001, Month.AUGUST,13), "rares@mail.com", "rares", "rares"), new User(2L, "Raress", LocalDate.of(2002, Month.AUGUST,13), "raress@mail.com", "raress", "raress"));
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
-    public void getUserTest() throws Exception{
-        Mockito.when(userService.getUsers()).thenReturn(mockUsers);
+    public void getUserTest() {
+        UserServiceInterface userService = new UserService(userRepository);
+        when(userRepository.findAll()).thenReturn(mockUsers);
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-                "/users").accept(
-                MediaType.APPLICATION_JSON);
+        List<User> users = userService.getUsers();
+        assertEquals(users, mockUsers);
+        verify(userRepository).findAll();
+    }
 
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        String expected = "[{\"id\":1,\"name\":\"Rares\",\"dateOfBirth\":\"2001-08-13\",\"email\":\"rares@mail.com\",\"username\":\"rares\",\"password\":\"rares\",\"todos\":null},{\"id\":2,\"name\":\"Raress\",\"dateOfBirth\":\"2002-08-13\",\"email\":\"raress@mail.com\",\"username\":\"raress\",\"password\":\"raress\",\"todos\":null}]";
+    @Test
+    public void deleteUserTest() {
+        UserServiceInterface userService = new UserService(userRepository);
+        User user = new User(1L, "Rares", LocalDate.of(2001, Month.AUGUST, 13), "rares@mail.com", "rares", "rares");
 
-        JSONAssert.assertEquals(expected, result.getResponse()
-                .getContentAsString(), false);
+        when(userRepository.existsById(user.getId())).thenReturn(true);
+        ResponseEntity<String> result = userService.deleteUser(user.getId());
+
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        verify(userRepository).existsById(user.getId());
+    }
+
+    @Test
+    public void updateUserTest() {
+        UserServiceInterface userService = new UserService(userRepository);
+        User user = new User(1L, "Rares", LocalDate.of(2001, Month.AUGUST, 13), "rares@mail.com", "rares", "rares");
+
+        User userafterupdate = new User(1L, "Raressss", LocalDate.of(2001, Month.AUGUST, 13), "newemail@gmail.com", "rares", "rares");
+
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+
+        User userUpdated = userService.updateUser(user.getId(), "Raressss", "newemail@gmail.com");
+
+        assertEquals(userUpdated, userafterupdate);
+
+        verify(userRepository).findById(user.getId());
     }
 
 }

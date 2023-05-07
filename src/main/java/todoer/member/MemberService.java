@@ -2,6 +2,8 @@ package todoer.member;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import todoer.serviceInterfaces.MemberServiceInterface;
 
@@ -29,32 +31,38 @@ public class MemberService implements MemberServiceInterface {
 
     /**
      * @param member that needs to be added to the database
+     * @return
      */
-    public void addMember(Member member) {
+    public Boolean addMember(Member member) {
         memberRepository.save(member);
+        return true;
     }
 
     /**
-     * @param memberId    id of the member to be updated
-     * @param leader      modify if the user is a member or a leader
+     * @param memberId id of the member to be updated
+     * @param leader   modify if the user is a member or a leader
+     * @return
      */
     @Transactional
-    public void updateMember(Long memberId, Boolean leader) {
+    public Member updateMember(Long memberId, Boolean leader) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalStateException("member with id " + memberId + " does not exist"));
         if (leader != null && !Objects.equals(member.getLeader(), leader)) {
             member.setLeader(leader);
         }
+        return member;
     }
 
 
     /**
      * @param memberId id of the member to be deleted
+     * @return
      */
-    public void deleteMember(Long memberId) {
+    public ResponseEntity<String> deleteMember(Long memberId) {
         if (!memberRepository.existsById(memberId)) {
             throw new IllegalStateException(
                     "member with id " + memberId + " does not exist");
         }
         memberRepository.deleteById(memberId);
+        return new ResponseEntity<>("Member deleted", HttpStatus.OK);
     }
 }

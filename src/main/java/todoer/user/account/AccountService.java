@@ -33,8 +33,7 @@ public class AccountService implements AccountServiceInterface {
         {
             throw new IllegalStateException("email already exists");
         }
-        if (userByUsername.isPresent())
-        {
+        if (userByUsername.isPresent()) {
             throw new IllegalStateException("username already exists");
         }
         userRepository.save(user);

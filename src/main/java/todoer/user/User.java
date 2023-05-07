@@ -7,6 +7,7 @@ import todoer.todolist.ToDoList;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents the user/person with all their caracteristics
@@ -108,6 +109,19 @@ public class User {
                 ", password='" + password + '\'' +
                 ", todos=" + todos +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dateOfBirth, user.dateOfBirth) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(todos, user.todos) && Objects.equals(members, user.members);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, dateOfBirth, email, username, password, todos, members);
     }
 
     public List<ToDoList> getTodos() {

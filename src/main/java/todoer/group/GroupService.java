@@ -2,6 +2,8 @@ package todoer.group;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import todoer.serviceInterfaces.GroupServiceInterface;
 
@@ -29,18 +31,21 @@ public class GroupService implements GroupServiceInterface {
 
     /**
      * @param group that needs to be added to the database
+     * @return
      */
-    public void addGroup(Group group) {
+    public Boolean addGroup(Group group) {
         groupRepository.save(group);
+        return true;
     }
 
     /**
-     * @param groupId    id of the group to be updated
-     * @param name      the new text of the group
-     * @param desc the new state of the group
+     * @param groupId id of the group to be updated
+     * @param name    the new text of the group
+     * @param desc    the new state of the group
+     * @return
      */
     @Transactional
-    public void updateGroup(Long groupId, String name, String desc) {
+    public Group updateGroup(Long groupId, String name, String desc) {
         Group group = groupRepository.findById(groupId).orElseThrow(() -> new IllegalStateException("group with id " + groupId + " does not exist"));
         if (name != null && name.length() > 0 && !Objects.equals(group.getName(), name)) {
             group.setName(name);
@@ -49,17 +54,20 @@ public class GroupService implements GroupServiceInterface {
         if (desc != null && desc.length() > 0 && !Objects.equals(group.getDescription(), desc)) {
             group.setDescription(desc);
         }
+        return group;
     }
 
 
     /**
      * @param groupId id of the group to be deleted
+     * @return
      */
-    public void deleteGroup(Long groupId) {
+    public ResponseEntity<String> deleteGroup(Long groupId) {
         if (!groupRepository.existsById(groupId)) {
             throw new IllegalStateException(
                     "group with id " + groupId + " does not exist");
         }
         groupRepository.deleteById(groupId);
+        return new ResponseEntity<>("Group deleted", HttpStatus.OK);
     }
 }

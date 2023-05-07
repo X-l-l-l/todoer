@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import todoer.member.Member;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents the group with all their caracteristics
@@ -20,6 +21,11 @@ public class Group {
     private String name;
     private String description;
 
+
+    public Group(Long id) {
+        this.id = id;
+    }
+
     public Group() {
     }
 
@@ -32,6 +38,14 @@ public class Group {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -70,4 +84,17 @@ public class Group {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "group")
     private List<Member> members;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return Objects.equals(id, group.id) && Objects.equals(name, group.name) && Objects.equals(description, group.description) && Objects.equals(members, group.members);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, members);
+    }
 }

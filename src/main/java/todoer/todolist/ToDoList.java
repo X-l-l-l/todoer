@@ -8,6 +8,7 @@ import todoer.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Representation of the list of tasks
@@ -92,6 +93,19 @@ public class ToDoList {
                 ", items=" + items +
                 ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ToDoList toDoList = (ToDoList) o;
+        return Objects.equals(id, toDoList.id) && Objects.equals(title, toDoList.title) && Objects.equals(description, toDoList.description) && Objects.equals(items, toDoList.items) && Objects.equals(user, toDoList.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, items, user);
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "todo")

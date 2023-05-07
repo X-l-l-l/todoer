@@ -2,6 +2,8 @@ package todoer.user;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import todoer.serviceInterfaces.UserServiceInterface;
 
@@ -31,8 +33,9 @@ public class UserService implements UserServiceInterface {
 
     /**
      * @param userId the id by which the user is deleted
+     * @return
      */
-    public void deleteUser(Long userId) {
+    public ResponseEntity<String> deleteUser(Long userId) {
         boolean exists = userRepository.existsById(userId);
         if(!exists){
             throw new IllegalStateException(
@@ -40,15 +43,17 @@ public class UserService implements UserServiceInterface {
             );
         }
         userRepository.deleteById(userId);
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 
     /**
      * @param userId the id of the user that will be updated
-     * @param name the new name
-     * @param email the new email
+     * @param name   the new name
+     * @param email  the new email
+     * @return
      */
     @Transactional
-    public void updateUser(Long userId, String name, String email) {
+    public User updateUser(Long userId, String name, String email) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("user with id "+userId+" does not exist"));
         if(name != null && name.length()>0 && !Objects.equals(user.getName(), name)){
             user.setName(name);
@@ -61,5 +66,6 @@ public class UserService implements UserServiceInterface {
             }
             user.setEmail(email);
         }
+        return user;
     }
 }

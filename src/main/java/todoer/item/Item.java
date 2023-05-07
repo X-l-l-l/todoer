@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import todoer.todolist.ToDoList;
 
+import java.util.Objects;
+
 /**
  * Used to implement each of the to-do list items
  */
@@ -79,5 +81,18 @@ public class Item {
 
     public void setTodo(ToDoList todo) {
         this.todo = todo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(id, item.id) && Objects.equals(text, item.text) && Objects.equals(completed, item.completed) && Objects.equals(todo, item.todo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, text, completed, todo);
     }
 }

@@ -2,8 +2,9 @@ package todoer.todolist;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import todoer.item.Item;
 import todoer.serviceInterfaces.ToDoListServiceInterface;
 
 import java.util.List;
@@ -31,29 +32,34 @@ public class ToDoListService implements ToDoListServiceInterface {
 
     /**
      * @param todo that will be added in the database
+     * @return
      */
-    public void addToDo(ToDoList todo) {
+    public Boolean addToDo(ToDoList todo) {
         toDoListRepository.save(todo);
+        return true;
     }
 
     /**
      * @param todoId id of the list to be deleted
+     * @return
      */
-    public void deleteToDo(Long todoId) {
+    public ResponseEntity<String> deleteToDo(Long todoId) {
         if (!toDoListRepository.existsById(todoId)) {
             throw new IllegalStateException(
                     "List with id " + todoId + " does not exist");
         }
         toDoListRepository.deleteById(todoId);
+        return new ResponseEntity<>("List deleted", HttpStatus.OK);
     }
 
     /**
-     * @param todoId id of the list to be updated
-     * @param title the new title
+     * @param todoId      id of the list to be updated
+     * @param title       the new title
      * @param description the new description
+     * @return
      */
     @Transactional
-    public void updateToDo(Long todoId, String title, String description) {
+    public ToDoList updateToDo(Long todoId, String title, String description) {
         ToDoList list = toDoListRepository.findById(todoId).orElseThrow(() -> new IllegalStateException("List with id " + todoId + " does not exist"));
         if (title != null && title.length() > 0 && !Objects.equals(list.getTitle(), title)) {
             list.setTitle(title);
@@ -62,5 +68,7 @@ public class ToDoListService implements ToDoListServiceInterface {
         if (description != null && description.length() > 0 && !Objects.equals(list.getDescription(), description)) {
             list.setDescription(description);
         }
+
+        return list;
     }
 }

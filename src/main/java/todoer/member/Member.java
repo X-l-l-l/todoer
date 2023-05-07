@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import todoer.group.Group;
 import todoer.user.User;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "members")
 public class Member {
@@ -70,5 +72,18 @@ public class Member {
                 ", group=" + group +
                 ", leader=" + leader +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(user, member.user) && Objects.equals(group, member.group) && Objects.equals(leader, member.leader);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, group, leader);
     }
 }
