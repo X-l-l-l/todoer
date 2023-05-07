@@ -56,7 +56,7 @@ The project is divided into 3 layers:
 - the repository layer, which ties the app and the database, it creates queries for getting specific data from the database
 
 ## Functionalities
-- add, select, remove or update lists, items or users
+- add, select, remove or update lists, items, users, groups and group members
 - on a new item added the user gets notified with the name of the list it is in and of the new items
 
 ## Endpoints
@@ -68,13 +68,28 @@ The project is divided into 3 layers:
 - GET - gets all the existing users
 
 ### ToDoList endpoints
-- POST (register) - adds a new list to a specific user
+- POST - adds a new list to a specific user
 - GET - gets all the existing lists
 - PUT - updates a lists title and description
 - DELETE - deletes a list by id
 
 ### Items endpoints
-- POST (register) - adds a new item to a specific list
+- POST - adds a new item to a specific list
 - PUT - updates a lists text or state
 - GET - gets all the existing items
 - DELETE - deletes an item by id
+
+### Group endboints
+- POST - adds a new group
+- PUT - updates a groups leader
+- GET - gets all the existing groups
+- DELETE - deletes a group by id
+
+### Member endpoints
+- POST - adds a new member to a group
+- PUT - updates a member
+- GET - gets all the members
+- DELETE - deletes a member by id
+
+## Unit tests
+For the unit tests I mocked the dependencies of the used services and then tested every method of the said service. The tests validate if the objects are added, removed, updated or retreived correctly.
