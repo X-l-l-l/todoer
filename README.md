@@ -92,4 +92,8 @@ The project is divided into 3 layers:
 - DELETE - deletes a member by id
 
 ## Unit tests
-For the unit tests I mocked the dependencies of the used services and then tested every method of the said service. The tests validate if the objects are added, removed, updated or retreived correctly.
+For the unit tests I mocked with Mockito the dependencies of the used services and then tested every method of the said service. The tests validate if the objects are added, removed, updated or retreived correctly.
+
+By mocking the dependencies of the services we can control what the output of the different methodes used is, thus letting us only test the functionality of the service class, indifferent of the input provided. 
+
+We used the when static method to "force" a return value when using a method, the assertTrue or assertEqual methods so that the test would succeed or fail based on if the result is true (for assertTrue) or if the objects provided are equal (for assertEqual), and verify which checks if the method specified was used correctl and with the same parameters.
