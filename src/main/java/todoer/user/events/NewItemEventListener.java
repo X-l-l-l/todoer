@@ -27,9 +27,10 @@ public class NewItemEventListener {
      *                     to the console (for now)
      */
     @EventListener
-    public void handleNewItem(final NewItemEvent newItemEvent){
+    public String handleNewItem(final NewItemEvent newItemEvent){
         ToDoList list = toDoListRepository.findById(newItemEvent.getItem().getTodo().getId()).orElseThrow(() -> new IllegalStateException("list doesn't exist"));
         User user = userRepository.findById(list.getUser().getId()).orElseThrow(() -> new IllegalStateException("user does not exist"));
         System.out.println(user.getName() + ":New item " + newItemEvent.getItem().getText() + " in the " + list.getTitle() + " list.");
+        return user.getName() + ":New item " + newItemEvent.getItem().getText() + " in the " + list.getTitle() + " list.";
     }
 }

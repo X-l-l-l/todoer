@@ -1,8 +1,10 @@
 package todoer.group;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import todoer.serviceInterfaces.GroupServiceInterface;
+import todoer.user.User;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * Has all the functionalities of a group
  */
 @RestController
-@RequestMapping("group")
+@RequestMapping("groups")
 public class GroupController {
     private final GroupServiceInterface groupService;
 
@@ -23,10 +25,16 @@ public class GroupController {
     /**
      * @param group the group that needs to be added to the database
      */
+    @CrossOrigin
     @PostMapping
     public void addGroup(@RequestBody Group group)
     {
         groupService.addGroup(group);
+    }
+
+    @GetMapping(path = "{groupId}")
+    public Group getGroup(@PathVariable Long groupId){
+        return groupService.getGroup(groupId);
     }
 
     /**
@@ -58,5 +66,25 @@ public class GroupController {
     )
     {
         groupService.updateGroup(groupId, name, description);
+    }
+
+    @Transactional
+    @CrossOrigin
+    @PutMapping(path = "adduser/{groupId}")
+    public void addUserToGroup(@PathVariable Long groupId, @RequestParam String username){
+        groupService.addUserToGroup(groupId,username);
+    }
+
+    @Transactional
+    @CrossOrigin
+    @PutMapping(path = "removeuser/{groupId}")
+    public void removeUserFromGroup(@PathVariable Long groupId, @RequestParam String username){
+        groupService.removeUserFromGroup(groupId,username);
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "get/{userId}")
+    List<Group> getGroupsByUserId(@PathVariable Long userId){
+        return groupService.getGroupsByUserId(userId);
     }
 }

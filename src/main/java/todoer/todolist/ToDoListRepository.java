@@ -12,4 +12,5 @@ import java.util.Optional;
 @Repository
 public interface ToDoListRepository extends JpaRepository<ToDoList, Long> {
     Optional<ToDoList> findToDoListByTitle(String title);
+    Optional<ToDoList> findToDoListById(Long id);
 }

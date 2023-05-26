@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import todoer.serviceInterfaces.GroupServiceInterface;
+import todoer.user.User;
+import todoer.user.UserRepository;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Implementation of all the methodology of a group
@@ -16,17 +18,25 @@ import java.util.Objects;
 @Service
 public class GroupService implements GroupServiceInterface {
     private final GroupRepository groupRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public GroupService(GroupRepository groupRepository) {
+    public GroupService(GroupRepository groupRepository, UserRepository userRepository) {
         this.groupRepository = groupRepository;
+        this.userRepository = userRepository;
     }
 
     /**
      * @return a list of groups from the database
      */
     public List<Group> getGroups() {
-        return groupRepository.findAll();
+        List<Group> groups = groupRepository.findAll();
+        return groups;
+    }
+
+    @Override
+    public Group getGroup(Long id) {
+        return groupRepository.getGroupById(id).get();
     }
 
     /**
@@ -34,8 +44,40 @@ public class GroupService implements GroupServiceInterface {
      * @return
      */
     public Boolean addGroup(Group group) {
+        User user = userRepository.getUserById(group.getUsers().stream().toList().get(0).getId());
+        Set<Group> groups = new HashSet<>();
+        groups.add(group);
+        user.setGroups(groups);
         groupRepository.save(group);
         return true;
+    }
+
+
+
+    @Override
+    public List<Group> getGroupsByUserId(Long userId) {
+        return groupRepository.findGroupsByUsersId(userId);
+    }
+
+    @Override
+    public void addUserToGroup(Long groupId, String username) {
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if (user.isPresent()){
+            Group group = groupRepository.getGroupById(groupId).get();
+            group.addUser(user.get());
+        }
+        else throw new IllegalStateException("User not exist");
+
+    }
+
+    @Override
+    public void removeUserFromGroup(Long groupId, String username) {
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if (user.isPresent()){
+            Group group = groupRepository.getGroupById(groupId).get();
+            group.removeUser(user.get().getId());
+        }
+        else throw new IllegalStateException("User not exist");
     }
 
     /**

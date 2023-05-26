@@ -3,6 +3,7 @@ package todoer.item;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import todoer.group.Group;
 import todoer.todolist.ToDoList;
 
 import java.util.Objects;
@@ -66,15 +67,27 @@ public class Item {
                 "id=" + id +
                 ", text='" + text + '\'' +
                 ", completed=" + completed +
-                ", todo=" + todo +
                 '}';
     }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "listId",nullable = false , referencedColumnName = "id")
+    @JoinColumn(name = "listId", referencedColumnName = "id")
     private ToDoList todo;
 
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "groupId", referencedColumnName = "id")
+    private Group group;
+
+    @JsonBackReference(value = "grp")
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    @JsonBackReference(value = "lst")
     public ToDoList getTodo() {
         return todo;
     }

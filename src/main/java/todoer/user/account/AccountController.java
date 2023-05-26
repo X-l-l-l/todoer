@@ -26,6 +26,7 @@ public class AccountController {
      * @param credentials the credentials given
      * @return response
      */
+    @CrossOrigin
     @PostMapping(path = "login")
     public ResponseEntity logIn(@RequestBody String credentials) throws JsonProcessingException {
 
@@ -34,7 +35,8 @@ public class AccountController {
 
         if(accountService.logIn(account.username, account.password))
         {
-            return new ResponseEntity("Logged in", HttpStatus.ACCEPTED);
+            System.out.println("DAAA");
+            return new ResponseEntity("Logged in", HttpStatus.OK);
         }
         return new ResponseEntity("Wrong credentials", HttpStatus.UNAUTHORIZED);
     }
@@ -42,6 +44,7 @@ public class AccountController {
     /**
      * @param user the user that will be registered
      */
+    @CrossOrigin
     @PostMapping (path = "register")
     public void register(@RequestBody User user) {
         accountService.register(user);

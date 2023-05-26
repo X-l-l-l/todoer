@@ -60,7 +60,7 @@ public class UserTests {
 
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
-        User userUpdated = userService.updateUser(user.getId(), "Raressss", "newemail@gmail.com");
+        User userUpdated = userService.updateUser(user.getId(), "Raressss", "newemail@gmail.com", "rares", LocalDate.of(2001, Month.AUGUST, 13));
 
         assertEquals(userUpdated, userafterupdate);
 

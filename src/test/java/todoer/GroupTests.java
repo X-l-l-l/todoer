@@ -9,7 +9,10 @@ import todoer.group.Group;
 import todoer.group.GroupRepository;
 import todoer.group.GroupService;
 import todoer.serviceInterfaces.GroupServiceInterface;
+import todoer.user.User;
+import todoer.user.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +27,20 @@ import static org.mockito.Mockito.when;
 public class GroupTests {
     @Mock
     private GroupRepository groupRepository;
+    @Mock
+    private UserRepository userRepository;
 
-    List<Group> mockGroups = Arrays.asList(new Group(1L,"group1","desc1"), new Group(2L,"group2","desc2"));
+    List<Group> mockGroups = Arrays.asList(new Group(1L,"group1","desc1", new ArrayList<User>(){{
+        add(new User(1L));
+        add(new User(2L));
+    }}), new Group(2L,"group2","desc2", new ArrayList<User>(){{
+        add(new User(3L));
+        add(new User(4L));
+    }}));
 
     @Test
     public void addGroupTest() {
-        GroupServiceInterface groupService = new GroupService(groupRepository);
+        GroupServiceInterface groupService = new GroupService(groupRepository, userRepository);
         Group group = mockGroups.get(0);
 
         when(groupRepository.save(any(Group.class))).thenReturn(new Group());
@@ -40,7 +51,7 @@ public class GroupTests {
     }
     @Test
     public void getGroupTest() {
-        GroupServiceInterface groupService = new GroupService(groupRepository);
+        GroupServiceInterface groupService = new GroupService(groupRepository, userRepository);
         when(groupRepository.findAll()).thenReturn(mockGroups);
 
         List<Group> groups = groupService.getGroups();
@@ -50,7 +61,7 @@ public class GroupTests {
 
     @Test
     public void deleteGroupTest() {
-        GroupServiceInterface groupService = new GroupService(groupRepository);
+        GroupServiceInterface groupService = new GroupService(groupRepository, userRepository);
         Group group = mockGroups.get(0);
 
         when(groupRepository.existsById(group.getId())).thenReturn(true);
@@ -62,10 +73,13 @@ public class GroupTests {
 
     @Test
     public void updateGroupTest() {
-        GroupServiceInterface groupService = new GroupService(groupRepository);
+        GroupServiceInterface groupService = new GroupService(groupRepository, userRepository);
         Group group = mockGroups.get(0);
 
-        Group listafterupdate = new Group(1L,"newgroup","newdesc");
+        Group listafterupdate = new Group(1L,"newgroup","newdesc", new ArrayList<User>(){{
+            add(new User(1L));
+            add(new User(2L));
+        }});
 
         when(groupRepository.findById(group.getId())).thenReturn(Optional.of(group));
 

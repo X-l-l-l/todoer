@@ -2,6 +2,7 @@ package todoer.todolist;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import todoer.item.Item;
 import todoer.user.User;
@@ -109,6 +110,7 @@ public class ToDoList {
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "todo")
+    @JsonManagedReference(value = "lst")
     private List<Item> items;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

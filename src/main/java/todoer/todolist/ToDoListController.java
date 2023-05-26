@@ -1,6 +1,7 @@
 package todoer.todolist;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 import todoer.serviceInterfaces.ToDoListServiceInterface;
 
@@ -29,19 +30,22 @@ public class ToDoListController {
     /**
      * @param todo the list to be added in the database
      */
+
+    @CrossOrigin
     @PostMapping
     public void createToDo(@RequestBody ToDoList todo)
     {
         toDoListService.addToDo(todo);
     }
 
+    @CrossOrigin
     @DeleteMapping(path = "{todoId}")
     public void deleteToDo(@PathVariable Long todoId){
         toDoListService.deleteToDo(todoId);
     }
 
     @PutMapping(path = "{todoId}")
-    public void updateUser(
+    public void updateToDo(
             @PathVariable("todoId") Long todoId,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String description

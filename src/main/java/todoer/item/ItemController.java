@@ -35,12 +35,14 @@ public class ItemController {
     /**
      * @param item the item that needs to be added to the database
      */
+    @CrossOrigin
     @PostMapping
     public void addItem(@RequestBody Item item)
     {
         itemService.addItem(item);
     }
 
+    @CrossOrigin
     @PutMapping(path = "{itemId}")
     public void updateItem(
             @PathVariable("itemId") Long itemId,
@@ -50,7 +52,7 @@ public class ItemController {
     {
         itemService.updateItem(itemId, text, completed);
     }
-
+    @CrossOrigin
     @DeleteMapping(path = "{itemId}")
     public void deleteItem(@PathVariable("itemId") Long itemId){
         itemService.deleteItem(itemId);
