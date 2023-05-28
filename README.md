@@ -36,7 +36,7 @@ This app can benefit individuals, as well as teams, helping them track their dai
     - notifications will pop up, anouncing the user when a task deadline is close
 
 ## Database Design
-![Database](https://www.planttext.com/api/plantuml/svg/VPBTQeD048NlzoccAHI5Xf12IWWYUOZUowfZ7Be_iauQGz9txwungIMnxjNksJFdcnrXsx9qlDTAF9LOaK5e76dfZjad7gCkXYHFay8gwpRF-NhzllJR5o-boQ8_JQ5B5dbwSrVM8UtCpJrOPVZkd3SNornXk8-6YO_GGP90zF4AXveOOqX_0xnthysuDbPX-U8QIv9pXuLrvPyKhb7xnfGa8yGbQz-YQ-EJ67TBPRo1d7PaM0mnfMJCR9NbvBZsQjZ3LKGjIVd3B-cAMhheRRMARwAH6gUqHhRjmKDEwG7kWLzyN-dPblOVUX3ZCOHgsQFUi2qSDKpMJ87uOQXf2ZyQ_TyRZY4KjVm8eh2wKSXuKJXQZiAnupkm41wQX_DvFZz1Zx21sL1-9lgv3c9_qOl30yp45atfVtNu0G00)
+![Database]([https://www.planttext.com/api/plantuml/svg/VPBTQeD048NlzoccAHI5Xf12IWWYUOZUowfZ7Be_iauQGz9txwungIMnxjNksJFdcnrXsx9qlDTAF9LOaK5e76dfZjad7gCkXYHFay8gwpRF-NhzllJR5o-boQ8_JQ5B5dbwSrVM8UtCpJrOPVZkd3SNornXk8-6YO_GGP90zF4AXveOOqX_0xnthysuDbPX-U8QIv9pXuLrvPyKhb7xnfGa8yGbQz-YQ-EJ67TBPRo1d7PaM0mnfMJCR9NbvBZsQjZ3LKGjIVd3B-cAMhheRRMARwAH6gUqHhRjmKDEwG7kWLzyN-dPblOVUX3ZCOHgsQFUi2qSDKpMJ87uOQXf2ZyQ_TyRZY4KjVm8eh2wKSXuKJXQZiAnupkm41wQX_DvFZz1Zx21sL1-9lgv3c9_qOl30yp45atfVtNu0G00](https://www.planttext.com/api/plantuml/svg/dLHTRu9047o_Nx6rIID9ZR69ZJ64-2FwJWvOT5FkZXnBrMZ_U-yK4J-mJU7fRdPsPkuMO56nj5ohGZnbc9D6A2qfQRVn9sw7cm3290fJKnWxVqvci_U9MxuuA0h7Xzq8Dk4uYLfsRYpIKhViXYhzSyDiMIoJ0dqzQYRUmWR248OVhx1U4MC0qLd0SMkbkxqnzwzhhZ0ZERAO6fjTgF0AbGjMID927BNg2cqLx4GtBMN1719QacRHo6IICJPvd93bbKFz6auWAac5s_oIDbr9EtoRJeCMr59X7rRAgbexatsuDtU7BxvFxjbave5x4DrhyDtYUzcmIYsLJ4Rt6N6NKVIxMDhoeOc_wpmCkxIcBcEVuahi25n8Tk7ht71kgGrJJgdqdlvzZkTJmWtV96krt02hHvFMbIYeuhWFl8bxqa-DAWjaF28yd0I_M_C31FlzQBI3Wy4v31hnWJXy6mruA7HW4_uIl3Z6lgBpzNKh_EpSApY570Z_B51dxjy4Fm00)
 
 The app is composed of 3 tables: 
 - one for users and user related data such as name, date_of_birth, email, username, password
@@ -49,6 +49,8 @@ There are 4 main packages:
 - the account package, responsible for authentification functionality like login and registration
 - the item package, which contains the item class, the item_controller, item_service and item_repository
 - the todolist package, which contains the todolist class, the todolist_controller, todolist_service and todolist_repository
+- the group package, containing the model, controller, service and repo
+- the notification package, containing the model, controller, service and repo
 
 The project is divided into 3 layers:
 - the controller layer, which contains all of the functionalities of the app and routing methods for specific requests
@@ -91,9 +93,20 @@ The project is divided into 3 layers:
 - GET - gets all the members
 - DELETE - deletes a member by id
 
+### Notification endpoints
+- POST - adds a new notification to users
+- GET - gets all the notifications
+- DELETE - deletes a notification by id
+
 ## Unit tests
 For the unit tests I mocked with Mockito the dependencies of the used services and then tested every method of the said service. The tests validate if the objects are added, removed, updated or retreived correctly.
 
 By mocking the dependencies of the services we can control what the output of the different methodes used is, thus letting us only test the functionality of the service class, indifferent of the input provided. 
 
 We used the when static method to "force" a return value when using a method, the assertTrue or assertEqual methods so that the test would succeed or fail based on if the result is true (for assertTrue) or if the objects provided are equal (for assertEqual), and verify which checks if the method specified was used correctl and with the same parameters.
+
+## Front
+
+Pentru partea de front am folosit vanilla javascript si jQuery pentru logica si requesturi, precum HTML si CSS pentru design si asezare in pagina. Am lucrat modular, astfel ca fiecare functionalitate este efectuata de o functie, lansata de anumite event-uri cum ar fi apasarea unui buton, miscarea mouse-ului, incarcarea paginii, primirea unor date in urma unui request, etc.
+<br/>
+Paginile pe care user-ul le poate accesa sunt cele de login si register unde acesta isi poate face cont sau poate folosi unul existent pentru a se loga. V-a urma pagina de home, unde sunt prezente toate todo list-urile cu diferite iteme si butoane cu care poate adauga mai multe liste sau itemi. Cu ajutorul meniului userul poaate naviga pe alte pagini cum ar fi inapoi la pagina de login, prin de-logare, pagina de grupuri unde se pot crea grupuri, adauga useri la grupuri si adauga itemi pentru echipe, si settings unde userul isi poate edita contul.
