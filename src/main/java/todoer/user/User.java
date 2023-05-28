@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import todoer.group.Group;
+import todoer.notification.Notification;
 import todoer.todolist.ToDoList;
 
 import java.time.LocalDate;
@@ -127,12 +128,23 @@ public class User {
         return groups;
     }
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     public void setGroups(Set<Group> groups) {
         this.groups = groups;
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
     private List<ToDoList> todos;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
+    private List<Notification> notifications;
 
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
@@ -141,4 +153,16 @@ public class User {
             },
             mappedBy = "users")
     private Set<Group> groups;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

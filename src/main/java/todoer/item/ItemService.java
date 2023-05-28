@@ -41,7 +41,8 @@ public class ItemService implements ItemServiceInterface {
      */
     public Boolean addItem(Item item) {
         itemRepository.save(item);
-//        applicationEventPublisher.publishEvent(new NewItemEvent(this, item));
+        if(item.getGroup()!=null)
+            applicationEventPublisher.publishEvent(new NewItemEvent(this, item));
         return true;
     }
 

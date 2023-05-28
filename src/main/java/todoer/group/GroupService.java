@@ -53,12 +53,20 @@ public class GroupService implements GroupServiceInterface {
     }
 
 
-
+    /**
+     * @param userId the id of the user we want to get the groups for
+     * @return
+     */
     @Override
     public List<Group> getGroupsByUserId(Long userId) {
         return groupRepository.findGroupsByUsersId(userId);
     }
 
+
+    /**
+     * @param groupId the id of the group we want to add the user to
+     * @param username the username 123we4srd
+     */
     @Override
     public void addUserToGroup(Long groupId, String username) {
         Optional<User> user = userRepository.findUserByUsername(username);
@@ -70,6 +78,10 @@ public class GroupService implements GroupServiceInterface {
 
     }
 
+    /**
+     * @param groupId the group's id from which we delete the user
+     * @param username the username of the user we remove
+     */
     @Override
     public void removeUserFromGroup(Long groupId, String username) {
         Optional<User> user = userRepository.findUserByUsername(username);

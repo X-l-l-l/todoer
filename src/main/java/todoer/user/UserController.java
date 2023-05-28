@@ -29,11 +29,19 @@ public class UserController {
         return userService.getUsers();
     }
 
+    /**
+     * @param userId id used to find a user in the db
+     * @return
+     */
     @GetMapping(path = "id/{userId}")
     public User getUserById(Long userId){
         return userService.getUserById(userId);
     }
 
+    /**
+     * @param username username used to find a user in the db
+     * @return
+     */
     @CrossOrigin
     @GetMapping(path = "{username}")
     public User getUserByUsername(@PathVariable("username") String username){

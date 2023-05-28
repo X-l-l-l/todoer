@@ -32,6 +32,10 @@ public class GroupController {
         groupService.addGroup(group);
     }
 
+    /**
+     * @param groupId id to use to find a group in the db
+     * @return
+     */
     @GetMapping(path = "{groupId}")
     public Group getGroup(@PathVariable Long groupId){
         return groupService.getGroup(groupId);
@@ -68,6 +72,10 @@ public class GroupController {
         groupService.updateGroup(groupId, name, description);
     }
 
+    /**
+     * @param groupId the id of the group we want to add the user to
+     * @param username the username 123we4srd
+     */
     @Transactional
     @CrossOrigin
     @PutMapping(path = "adduser/{groupId}")
@@ -75,6 +83,10 @@ public class GroupController {
         groupService.addUserToGroup(groupId,username);
     }
 
+    /**
+     * @param groupId the group's id from which we delete the user
+     * @param username the username of the user we remove
+     */
     @Transactional
     @CrossOrigin
     @PutMapping(path = "removeuser/{groupId}")
@@ -82,6 +94,10 @@ public class GroupController {
         groupService.removeUserFromGroup(groupId,username);
     }
 
+    /**
+     * @param userId the id of the user we want to get the groups for
+     * @return
+     */
     @CrossOrigin
     @GetMapping(path = "get/{userId}")
     List<Group> getGroupsByUserId(@PathVariable Long userId){

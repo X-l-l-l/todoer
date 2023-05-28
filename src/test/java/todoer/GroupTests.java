@@ -12,10 +12,7 @@ import todoer.serviceInterfaces.GroupServiceInterface;
 import todoer.user.User;
 import todoer.user.UserRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,13 +27,7 @@ public class GroupTests {
     @Mock
     private UserRepository userRepository;
 
-    List<Group> mockGroups = Arrays.asList(new Group(1L,"group1","desc1", new ArrayList<User>(){{
-        add(new User(1L));
-        add(new User(2L));
-    }}), new Group(2L,"group2","desc2", new ArrayList<User>(){{
-        add(new User(3L));
-        add(new User(4L));
-    }}));
+    List<Group> mockGroups = Arrays.asList(new Group(1L,"group1","desc1"), new Group(2L,"group2","desc2"));
 
     @Test
     public void addGroupTest() {
@@ -76,10 +67,7 @@ public class GroupTests {
         GroupServiceInterface groupService = new GroupService(groupRepository, userRepository);
         Group group = mockGroups.get(0);
 
-        Group listafterupdate = new Group(1L,"newgroup","newdesc", new ArrayList<User>(){{
-            add(new User(1L));
-            add(new User(2L));
-        }});
+        Group listafterupdate = new Group(1L,"newgroup","newdesc");
 
         when(groupRepository.findById(group.getId())).thenReturn(Optional.of(group));
 

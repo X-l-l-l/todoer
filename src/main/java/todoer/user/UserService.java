@@ -80,11 +80,19 @@ public class UserService implements UserServiceInterface {
         return user;
     }
 
+    /**
+     * @param username username used to find a user in the db
+     * @return
+     */
     @Override
     public User getUserByUsername(String username) {
         return userRepository.findUserByUsername(username).get();
     }
 
+    /**
+     * @param userId id used to find a user in the db
+     * @return
+     */
     @Override
     public User getUserById(Long userId) {
         return userRepository.getUserById(userId);
