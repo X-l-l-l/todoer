@@ -101,12 +101,11 @@ The project is divided into 3 layers:
 ## Unit tests
 For the unit tests I mocked with Mockito the dependencies of the used services and then tested every method of the said service. The tests validate if the objects are added, removed, updated or retreived correctly.
 
-By mocking the dependencies of the services we can control what the output of the different methodes used is, thus letting us only test the functionality of the service class, indifferent of the input provided. 
+By mocking the dependencies of the services I can control what the output of the different methodes used is, thus letting us only test the functionality of the service class, indifferent of the input provided. 
 
-We used the when static method to "force" a return value when using a method, the assertTrue or assertEqual methods so that the test would succeed or fail based on if the result is true (for assertTrue) or if the objects provided are equal (for assertEqual), and verify which checks if the method specified was used correctl and with the same parameters.
+I used the when static method to "force" a return value when using a method, the assertTrue or assertEqual methods so that the test would succeed or fail based on if the result is true (for assertTrue) or if the objects provided are equal (for assertEqual), and verify which checks if the method specified was used correctl and with the same parameters.
 
 ## Front
+For the front part, I used vanilla javascript and jQuery for logic and requests, as well as HTML and CSS for design and placement on the page. I worked modularly, so that each functionality is performed by a function, launched by certain events such as pressing a button, moving the mouse, loading the page, receiving data following a request, etc.
 
-Pentru partea de front am folosit vanilla javascript si jQuery pentru logica si requesturi, precum HTML si CSS pentru design si asezare in pagina. Am lucrat modular, astfel ca fiecare functionalitate este efectuata de o functie, lansata de anumite event-uri cum ar fi apasarea unui buton, miscarea mouse-ului, incarcarea paginii, primirea unor date in urma unui request, etc.
-<br/>
-Paginile pe care user-ul le poate accesa sunt cele de login si register unde acesta isi poate face cont sau poate folosi unul existent pentru a se loga. V-a urma pagina de home, unde sunt prezente toate todo list-urile cu diferite iteme si butoane cu care poate adauga mai multe liste sau itemi. Cu ajutorul meniului userul poaate naviga pe alte pagini cum ar fi inapoi la pagina de login, prin de-logare, pagina de grupuri unde se pot crea grupuri, adauga useri la grupuri si adauga itemi pentru echipe, si settings unde userul isi poate edita contul.
+The pages that the user can access are the login and register pages where he can create an account or use an existing one to log in. The home page will follow, where all the todo lists with different items and buttons with which you can add more lists or items are present. With the help of the menu, the user can navigate to other pages such as back to the login page, by logging out, the groups page where groups can be created, add users to groups and add items for teams, and settings where the user can edit his account .
